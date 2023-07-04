@@ -1,0 +1,136 @@
+Questão 3:
+
+//libraries
+#include <stdio.h>
+#include <locale.h>
+
+int main(){setlocale(LC_ALL,"portuguese");
+
+  //vector           
+  int date_set[6];
+  int *ptr[6];
+  
+
+  for(int i = 0; i<6; i++){
+  printf("\n  Number %d =  ",i+1);
+  scanf("%d",&date_set[i]);
+  ptr[i] = &date_set[i];
+  }
+
+  for(int i = 0; i<6; i++){
+  printf("\n\nNumber %d: [%d]\nAddress: [%p]\n\n",i+1 ,*ptr[i],ptr[i]);
+  }
+          
+return 0;}
+
+
+Questão 4:
+
+//libraries
+#include <stdio.h>
+#include <locale.h>
+
+int main(){setlocale(LC_ALL,"portuguese");
+
+int pointer[4];
+int *ptr[4];
+int bigger;
+int smaller;
+int *b;
+int *s;
+          
+        
+for(int i = 0;i<4;i++){
+  printf("\nnumber %d: ",i+1);
+  scanf("%d",&pointer[i]);
+  ptr[i] = &pointer[i];
+}
+
+for(int i = 0;i<4;i++){
+  printf("\nnumber %d ",*ptr[i]);
+}
+
+bigger = smaller = *ptr[0];
+           
+for (int i = 1; i < 4; i++) {
+        if (*ptr[i] > bigger) {
+            bigger = *ptr[i];
+        }
+
+
+  if(*ptr[i]<smaller){
+  smaller = *ptr[i];
+  }
+}
+
+
+b = &bigger;
+s = &smaller;
+
+printf("\n\nBigger = %d\nSmaller = %d\n",*b,*s);
+
+              
+return 0;}
+
+
+Questão 5:
+
+//libraries
+#include <stdio.h>
+#include <locale.h>
+#include <string.h>
+
+int main(){setlocale(LC_ALL,"portuguese");
+
+           
+char str[100];
+char *ptr;
+int cont=0;
+
+        
+printf("Irform the text:");
+fgets(str, sizeof(str), stdin);
+ptr = str;
+int size = strlen(str);
+
+           
+ for(int i = 0;i<size;i++){
+  if(ptr[i]!=NULL) {
+    cont++;
+  }
+ } 
+           
+printf("%d",cont);
+           
+        
+return 0;}
+
+Questão 6:
+
+
+//libraries
+#include <stdio.h>
+#include <locale.h>
+#include <string.h>
+
+int main(){setlocale(LC_ALL,"portuguese");
+
+           
+char str[60];
+char *ptr;
+
+       
+printf("Irform the text:");
+fgets(str, sizeof(str), stdin);
+ptr = str;
+int size = strlen(str);
+
+           
+ for(int i = 0;i<size;i++){
+  if(ptr[i]!=' ') {
+    printf("%c",ptr[i]);
+  }else{  printf("\n");}
+ } 
+       
+return 0;}
+
