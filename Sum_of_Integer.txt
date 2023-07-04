@@ -1,0 +1,30 @@
+//libraries
+#include <stdio.h>
+#include <locale.h>
+
+
+int sum_set_of_integer(int size,int *set_of_integer){
+//attributes
+int sum = 0;
+int i;
+
+//sum loop
+for(int i = 0; i < 6; i++){ 
+sum = sum + set_of_integer[i]; 
+}
+return sum;
+}
+
+
+int main(){setlocale(LC_ALL,"portuguese");
+
+           
+//vector statement and others
+int set_of_integer[]={1,2,3,4,5,6,7};
+int size = sizeof(set_of_integer)/sizeof(set_of_integer[0]);
+
+//print the results          
+printf("A soma dos valores é %d",sum_set_of_integer(size,&set_of_integer));
+
+           
+return 0;}
