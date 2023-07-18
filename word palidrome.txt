@@ -1,0 +1,47 @@
+//libraries used
+#include<stdio.h>
+#include<string.h>
+#include<locale.h>
+
+
+int  palidrome(char *str){
+  int i=0,j = strlen(str)-1;
+  while(i<j){
+     //if the values are different,return false
+      if(str[i]!=str[j]){
+          return 0;
+      }
+    //i and j are always equal
+    i++;
+    j--;
+    return 1;
+  }
+}
+
+
+int main(){
+
+
+  //variables
+  char word[100];
+  
+  //sepel check
+  setlocale(LC_ALL,"portuguese");
+
+  //get string word
+  printf("Inform word : ");
+  scanf("%s",word);
+
+
+  //conditional
+  if(palidrome(word)){
+      printf("its palindrome");
+  }else{
+      printf("its not a palindrome");
+  }
+
+
+  return 0;
+
+  
+}
