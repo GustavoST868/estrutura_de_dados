@@ -1,0 +1,34 @@
+#include <stdio.h>
+#include <string.h>
+#include <locale.h>
+
+void verification(char *str){
+
+    int result;
+    int size = strlen(str)-1;
+    result   = strstr(str,"gustavo santos");
+    
+    if(result !=NULL){
+        printf("Alert");
+    }
+
+    }
+
+
+int  main(){
+
+
+    //variables
+    char text[1000];
+
+
+    //get string
+    printf("Informe string : ");
+    fgets(text,1000,stdin);
+
+
+    verification(&text);
+
+
+    return 0;
+}
