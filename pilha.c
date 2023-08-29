@@ -1,101 +1,133 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-int topo = -1;
-int quantidade;
+int topo_fila1 = -1;
+int topo_fila2 = -1;
+int topo_fila3 = -1;
 
-struct Pilha
+int topo_analize1;
+int topo_analize2;
+
+int contadorfila1 = 0;
+int contadorfila2 = 0;
+
+int controle_analize1 = 0;
+int controle_analize2 = 0;
+
+int controle__;
+
+struct Fila
 {
-    int *pilha;
+    int itens_fila1[3];
+    int itens_fila2[3];
+    int itens_fila3[6];
 };
-struct Pilha p;
+struct Fila f;
 
-void Empilhar(int item)
+void Adicionar_fila1(int i)
 {
-    if (topo < quantidade - 1)
+    topo_fila1++;
+    f.itens_fila1[topo_fila1] = i;
+}
+
+void Adicionar_fila2(int i)
+{
+    topo_fila2++;
+    f.itens_fila2[topo_fila2] = i;
+}
+
+void Mostrar_Fila1()
+{
+    printf("\nFila 1 = [%d][%d][%d]", f.itens_fila1[0], f.itens_fila1[1], f.itens_fila1[2], f.itens_fila1[3]);
+}
+
+void Mostrar_Fila2()
+{
+    printf("\nFila 2 = [%d][%d][%d]", f.itens_fila2[0], f.itens_fila2[1], f.itens_fila2[2], f.itens_fila2[3]);
+}
+
+void Mostrar_Fila3()
+{
+    printf("\nFila 3 = [%d][%d][%d][%d][%d][%d]", f.itens_fila3[0], f.itens_fila3[1], f.itens_fila3[2], f.itens_fila3[3], f.itens_fila3[4], f.itens_fila3[5]);
+}
+
+void Verificar_Fila1()
+{
+    if (topo_analize1 != -1)
     {
-        topo++;
-        p.pilha[topo] = item;
-    }
-    else
-    {
-        printf("Pilha cheia! Não é possível empilhar mais.\n");
+        contadorfila1++;
+        topo_analize1--;
+        Verificar_Fila1();
     }
 }
 
-void Desempilhar()
+void Atribuir()
 {
-    if (topo >= 0)
+    topo_analize1 = topo_fila1;
+    topo_analize2 = topo_fila2;
+    controle__ = contadorfila1 + contadorfila2;
+}
+
+void Verificar_Fila2()
+{
+    if (topo_analize2 != -1)
     {
-        p.pilha[topo] = 0;
-        topo--;
-    }
-    else
-    {
-        printf("Pilha vazia! Não é possível desempilhar.\n");
+        contadorfila2++;
+        topo_analize2--;
+        Verificar_Fila2();
     }
 }
 
-void MostrarRecursivamente()
+void IntercalaFila()
 {
-    if (topo >= 0)
+    if (contadorfila1 == contadorfila2)
     {
-        printf("%d", p.pilha[topo]);
-        p.pilha[topo] = 0;
-        topo--;
-        MostrarRecursivamente();
-    }
-    else
-    {
-        printf("\n\n");
-    }
-}
-
-int main()
-{
-    int escolha = 0;
-    int item;
-
-    printf("Tamanho da pilha: ");
-    scanf("%d", &quantidade);
-
-    p.pilha = (int *)malloc(quantidade * sizeof(int));
-
-    while (escolha != 3)
-    {
-
-        printf("\n\n\nInforme a opcao desejada:\n1-Empilhar\n2-Desempilhar\n4-Mostrar\n3-Sair\n");
-        scanf("%d", &escolha);
-
-        switch (escolha)
+        if (topo_fila1 != -1 || topo_fila2 != -1)
         {
+            if (controle_analize1 == 0)
+            {
+                topo_fila3++;
+                f.itens_fila3[topo_fila3] = f.itens_fila1[topo_fila1];
+                topo_fila1--;
+                controle_analize1++;
+                controle_analize2++;
 
-        case 1:
-            printf("Informe o item: ");
-            scanf("%d", &item);
-            Empilhar(item);
-            break;
+                IntercalaFila();
+            }
+            if (controle_analize2 == 1)
+            {
+                topo_fila3++;
+                f.itens_fila3[topo_fila3] = f.itens_fila2[topo_fila2];
+                topo_fila2--;
+                controle_analize1 = 0;
+                controle_analize2 = 0;
 
-        case 2:
-            Desempilhar();
-            break;
-
-        case 3:
-            printf("Saindo...\n");
-            break;
-
-        case 4:
-            printf("\n\n");
-            printf("Pilha:\n");
-            MostrarRecursivamente(topo);
-            printf("\n\n");
-            break;
-
-        default:
-            printf("Opcao inválida!\n");
-            break;
+                IntercalaFila();
+            }
         }
     }
-    free(p.pilha);
-    return 0;
+}
+
+void main()
+{
+    Adicionar_fila1(1);
+    Adicionar_fila1(1);
+    Adicionar_fila1(1);
+
+    Adicionar_fila2(2);
+    Adicionar_fila2(2);
+    Adicionar_fila2(2);
+
+    Mostrar_Fila1();
+
+    Mostrar_Fila2();
+
+    Atribuir();
+
+    Verificar_Fila1();
+    Verificar_Fila2();
+
+    IntercalaFila();
+
+    Mostrar_Fila3();
 }
