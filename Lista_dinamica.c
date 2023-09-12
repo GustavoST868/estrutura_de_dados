@@ -29,7 +29,7 @@ tipodoItem criarItem(int valor) {
     }
 }
 
-tipodoItem inserirEsquerda(int valor, tipodoItem Item) {
+tipodoItem inserirInicio(int valor, tipodoItem Item) {
 
     tipodoItem novoItem = criarItem(valor);
 
@@ -40,8 +40,30 @@ tipodoItem inserirEsquerda(int valor, tipodoItem Item) {
         Item->anterior = novoItem;
         return novoItem;
     }
+}
+
+tipoLista inserirFim(int valor, tipoLista lista) {
+
+    tipoLista novoItem = criarItem(valor);
+
+    if (lista == NULL) {
+        return novoItem;
+    } else {
+
+        tipoLista listaAuxiliar = lista;
+
+        while (listaAuxiliar->proximo != NULL) {
+            listaAuxiliar = listaAuxiliar->proximo;
+        }
+
+        listaAuxiliar->proximo = novoItem;
+        novoItem->anterior = listaAuxiliar;
+
+        return lista;
+    }
 
 }
+
 
 void exibir(tipodoItem Item) {
     if (Item == NULL) {
@@ -61,9 +83,9 @@ void exibir(tipodoItem Item) {
 int main() {
 
     tipodoItem Item = NULL;
-    Item = inserirEsquerda(1, Item);
-    Item = inserirEsquerda(2, Item);
-    Item = inserirEsquerda(3, Item);
+    Item = inserirInicio(1, Item);
+    Item = inserirInicio(2, Item);
+    Item = inserirInicio(3, Item);
 
     exibir(Item);
 
