@@ -1,170 +1,78 @@
-#include <stdio.h>
 #include <stdlib.h>
+#include <stdio.h>
 
-int posicao = 0;
-int tamanho;
+typedef struct Lista {
+    int Lista;
+    struct Lista *anterior;
+    struct Lista *proximo;
+} Lista;
 
-struct Lista
-{
-    int *lista;
-};
-struct Lista l;
+typedef Lista* tipoLista;
 
-void ADD_Inicio(int valor)
-{
-    if (posicao == 0)
-    {
-        l.lista = (int *)malloc(sizeof(int));
-        l.lista[posicao] = valor;
-        posicao++;
-    }
-    else
-    {
-        int *nova_lista = (int *)malloc((posicao + 1) * sizeof(int));
-        nova_lista[0] = valor;
+tipoLista criarLista(int valor) {
 
-        for (int i = 0; i < posicao; i++)
-        {
-            nova_lista[i + 1] = l.lista[i];
-        }
+    if (valor < 0) {
+        printf("\nErro ao criar Lista!\n");
+        return NULL;
+    } else {
+        tipoLista novoLista = (tipoLista) malloc(sizeof(Lista));
 
-        free(l.lista);
-        l.lista = nova_lista;
-        posicao++;
-    }
-}
-
-void Add_fim(int valor)
-{
-    int tamanho_atual = posicao;
-
-    if (tamanho_atual == 0)
-    {
-        ADD_Inicio(valor);
-    }
-    else
-    {
-        int *nova_lista = (int *)malloc((tamanho_atual + 1) * sizeof(int));
-
-        for (int i = 0; i < tamanho_atual; i++)
-        {
-            nova_lista[i] = l.lista[i];
-        }
-
-        nova_lista[tamanho_atual] = valor;
-
-        free(l.lista);
-        l.lista = nova_lista;
-        posicao++;
-    }
-}
-
-int Remove_Inicio()
-{
-    if (posicao == 0)
-    {
-        printf("Lista vazia, não é possível remover do início.\n");
-        return -1;
-    }
-
-    int valor_removido = l.lista[0];
-
-    int *nova_lista = (int *)malloc((posicao - 1) * sizeof(int));
-
-    for (int i = 1; i < posicao; i++)
-    {
-        nova_lista[i - 1] = l.lista[i];
-    }
-
-    free(l.lista);
-    l.lista = nova_lista;
-    posicao--;
-}
-
-int Remover_Fim()
-{
-    if (posicao == 0)
-    {
-        printf("Lista vazia, não é possível remover do fim.\n");
-        return -1; 
-    }
-
-    int valor_removido = l.lista[posicao - 1];
-
-    int *nova_lista = (int *)malloc((posicao - 1) * sizeof(int));
-
-    for (int i = 0; i < posicao - 1; i++)
-    {
-        nova_lista[i] = l.lista[i];
-    }
-
-    free(l.lista);
-    l.lista = nova_lista;
-    posicao--;
-}
-
-void Mostrar()
-{
-    printf("\nLista:\n");
-    int i = 0;
-    while (i < posicao)
-    {
-        printf("%d ", l.lista[i]);
-        i++;
-    }
-    printf("\n");
-}
-
-
-void Inserir_Posicao(int valor, int pos)
-{
-    pos = pos-1;
-    if (pos < 0 || pos > posicao)
-    {
-        printf("Posição inválida para inserção.\n");
-        return;
-    }
-
-    int tamanho_atual = posicao + 1;
-    int *nova_lista = (int *)malloc(tamanho_atual * sizeof(int));
-
-    for (int i = 0, j = 0; i < tamanho_atual; i++)
-    {
-        if (i == pos)
-        {
-            nova_lista[i] = valor;
-        }
-        else
-        {
-            nova_lista[i] = l.lista[j++];
+        if (novoLista == NULL) {
+            printf("\nErro ao criar Lista!\n");
+            return NULL;
+        } else {
+            novoLista->Lista = valor;
+            novoLista->proximo = NULL;
+            novoLista->anterior = NULL;
+            return novoLista;
         }
     }
-
-    free(l.lista);
-    l.lista = nova_lista;
-    posicao++;
 }
 
+tipoLista inserirEsquerda(int valor, tipoLista lista) {
 
-int main()
-{
-    ADD_Inicio(1);
-    ADD_Inicio(2);
+    tipoLista novoLista = criarLista(valor);
 
-    Add_fim(3);
-    Add_fim(4);
+    if (lista == NULL) {
+        return novoLista;
+    } else {
+        novoLista->proximo = lista;
+        lista->anterior = novoLista;
+        return novoLista;
+    }
 
-    Mostrar();
-    
-    Inserir_Posicao(5,1);
-    Inserir_Posicao(3,4);
-    Inserir_Posicao(6,5);
-    
-    Mostrar();
+}
 
-   
+void exibir(tipoLista lista) {
 
-   
+    printf("\n---Lista atual---\n");
+
+    if (lista == NULL) {
+        printf("\nVazia!\n");
+    } else {
+
+        tipoLista listaAuxiliar = lista;
+
+        while (listaAuxiliar != NULL) {
+            printf("[%d] ", listaAuxiliar->Lista);
+            listaAuxiliar = listaAuxiliar->proximo;
+        }
+
+    }
+
+}
+
+int main() {
+
+    tipoLista lista = NULL;
+
+    lista = inserirEsquerda(5, lista);
+    lista = inserirEsquerda(4, lista);
+    lista = inserirEsquerda(3, lista);
+    lista = inserirEsquerda(2, lista);
+    lista = inserirEsquerda(1, lista);
+
+    exibir(lista);
 
     return 0;
 }
