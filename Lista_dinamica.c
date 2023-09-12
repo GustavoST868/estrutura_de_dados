@@ -1,78 +1,71 @@
 #include <stdlib.h>
 #include <stdio.h>
 
-typedef struct Lista {
-    int Lista;
-    struct Lista *anterior;
-    struct Lista *proximo;
-} Lista;
+typedef struct Item {
+    int Item;
+    struct Item *anterior;
+    struct Item *proximo;
+} Item;
 
-typedef Lista* tipoLista;
+typedef Item* tipodoItem;
 
-tipoLista criarLista(int valor) {
+tipodoItem criarItem(int valor) {
 
     if (valor < 0) {
-        printf("\nErro ao criar Lista!\n");
+        printf("\nErro ao criar Item!\n");
         return NULL;
     } else {
-        tipoLista novoLista = (tipoLista) malloc(sizeof(Lista));
+        tipodoItem novoItem = (tipodoItem) malloc(sizeof(Item));
 
-        if (novoLista == NULL) {
-            printf("\nErro ao criar Lista!\n");
+        if (novoItem == NULL) {
+            printf("\nErro ao criar Item!\n");
             return NULL;
         } else {
-            novoLista->Lista = valor;
-            novoLista->proximo = NULL;
-            novoLista->anterior = NULL;
-            return novoLista;
+            novoItem->Item = valor;
+            novoItem->proximo = NULL;
+            novoItem->anterior = NULL;
+            return novoItem;
         }
     }
 }
 
-tipoLista inserirEsquerda(int valor, tipoLista lista) {
+tipodoItem inserirEsquerda(int valor, tipodoItem Item) {
 
-    tipoLista novoLista = criarLista(valor);
+    tipodoItem novoItem = criarItem(valor);
 
-    if (lista == NULL) {
-        return novoLista;
+    if (Item == NULL) {
+        return novoItem;
     } else {
-        novoLista->proximo = lista;
-        lista->anterior = novoLista;
-        return novoLista;
+        novoItem->proximo = Item;
+        Item->anterior = novoItem;
+        return novoItem;
     }
 
 }
 
-void exibir(tipoLista lista) {
-
-    printf("\n---Lista atual---\n");
-
-    if (lista == NULL) {
+void exibir(tipodoItem Item) {
+    if (Item == NULL) {
         printf("\nVazia!\n");
     } else {
 
-        tipoLista listaAuxiliar = lista;
+        tipodoItem ItemAuxiliar = Item;
 
-        while (listaAuxiliar != NULL) {
-            printf("[%d] ", listaAuxiliar->Lista);
-            listaAuxiliar = listaAuxiliar->proximo;
+        while (ItemAuxiliar != NULL) {
+            printf("[%d] ", ItemAuxiliar->Item);
+            ItemAuxiliar = ItemAuxiliar->proximo;
         }
-
     }
-
 }
+
 
 int main() {
 
-    tipoLista lista = NULL;
+    tipodoItem Item = NULL;
+    Item = inserirEsquerda(1, Item);
+    Item = inserirEsquerda(2, Item);
+    Item = inserirEsquerda(3, Item);
 
-    lista = inserirEsquerda(5, lista);
-    lista = inserirEsquerda(4, lista);
-    lista = inserirEsquerda(3, lista);
-    lista = inserirEsquerda(2, lista);
-    lista = inserirEsquerda(1, lista);
-
-    exibir(lista);
+    exibir(Item);
 
     return 0;
 }
