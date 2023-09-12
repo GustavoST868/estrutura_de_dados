@@ -81,12 +81,12 @@ void Remove_Inicio()
     posicao--;
 }
 
-void Remove_Fim()
+void Remover_Fim()
 {
     if (posicao == 0)
     {
         printf("Lista vazia, não é possível remover do fim.\n");
-        return -1; // Indicar que a lista está vazia
+        return -1; 
     }
 
     int valor_removido = l.lista[posicao - 1];
@@ -115,6 +115,36 @@ void Mostrar()
     printf("\n");
 }
 
+
+void Inserir_Posicao(int valor, int pos)
+{
+    if (pos < 0 || pos > posicao)
+    {
+        printf("Posição inválida para inserção.\n");
+        return;
+    }
+
+    int tamanho_atual = posicao + 1;
+    int *nova_lista = (int *)malloc(tamanho_atual * sizeof(int));
+
+    for (int i = 0, j = 0; i < tamanho_atual; i++)
+    {
+        if (i == pos)
+        {
+            nova_lista[i] = valor;
+        }
+        else
+        {
+            nova_lista[i] = l.lista[j++];
+        }
+    }
+
+    free(l.lista);
+    l.lista = nova_lista;
+    posicao++;
+}
+
+
 int main()
 {
     ADD_Inicio(1);
@@ -122,16 +152,18 @@ int main()
 
     Add_fim(3);
     Add_fim(4);
+    
+    
 
     Mostrar();
-
-    Remove_Fim();
-
+    
+    Inserir_Posicao(3,0);
+    
     Mostrar();
 
-    Remove_Inicio();
+   
 
-    Mostrar();
+   
 
     return 0;
 }
