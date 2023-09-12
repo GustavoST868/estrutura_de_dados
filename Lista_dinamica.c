@@ -59,7 +59,7 @@ void Add_fim(int valor)
     }
 }
 
-void Remove_Inicio()
+int Remove_Inicio()
 {
     if (posicao == 0)
     {
@@ -81,7 +81,7 @@ void Remove_Inicio()
     posicao--;
 }
 
-void Remover_Fim()
+int Remover_Fim()
 {
     if (posicao == 0)
     {
@@ -152,12 +152,11 @@ int main()
 
     Add_fim(3);
     Add_fim(4);
-    
-    
 
     Mostrar();
     
-    Inserir_Posicao(3,0);
+    Inserir_Posicao(4,0);
+    Inserir_Posicao(3,4);
     
     Mostrar();
 
