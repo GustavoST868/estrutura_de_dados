@@ -118,6 +118,7 @@ void Mostrar()
 
 void Inserir_Posicao(int valor, int pos)
 {
+    pos = pos-1;
     if (pos < 0 || pos > posicao)
     {
         printf("Posição inválida para inserção.\n");
@@ -155,8 +156,9 @@ int main()
 
     Mostrar();
     
-    Inserir_Posicao(4,0);
+    Inserir_Posicao(5,1);
     Inserir_Posicao(3,4);
+    Inserir_Posicao(6,5);
     
     Mostrar();
 
