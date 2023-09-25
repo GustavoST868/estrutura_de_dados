@@ -4,43 +4,35 @@
 
 typedef struct Item
 {
-    char Usuario[100];
+    double valor;
     struct Item *anterior;
     struct Item *proximo;
 } Item;
 
 typedef Item *tipodoItem;
 
-tipodoItem criarItem(char *Usuario)
+tipodoItem criarItem(double valor)
 {
-    if (Usuario == NULL)
+
+    tipodoItem novoItem = (tipodoItem)malloc(sizeof(Item));
+
+    if (novoItem == NULL)
     {
         printf("\nErro ao criar Item!\n");
         return NULL;
     }
     else
     {
-        tipodoItem novoItem = (tipodoItem)malloc(sizeof(Item));
-
-        if (novoItem == NULL)
-        {
-            printf("\nErro ao criar Item!\n");
-            return NULL;
-        }
-        else
-        {
-            strncpy(novoItem->Usuario, Usuario, sizeof(novoItem->Usuario) - 1);
-            novoItem->Usuario[sizeof(novoItem->Usuario) - 1] = '\0';
-            novoItem->proximo = NULL;
-            novoItem->anterior = NULL;
-            return novoItem;
-        }
+        novoItem->valor = valor;
+        novoItem->proximo = NULL;
+        novoItem->anterior = NULL;
+        return novoItem;
     }
 }
 
-tipodoItem inserirInicio(char *Usuario, tipodoItem lista)
+tipodoItem inserirInicio(double valor, tipodoItem lista)
 {
-    tipodoItem novoItem = criarItem(Usuario);
+    tipodoItem novoItem = criarItem(valor);
 
     if (lista == NULL)
     {
@@ -54,10 +46,10 @@ tipodoItem inserirInicio(char *Usuario, tipodoItem lista)
     }
 }
 
-tipodoItem inserir_Fim(char *Usuario, tipodoItem lista)
+tipodoItem inserir_Fim(double valor, tipodoItem lista)
 {
 
-    tipodoItem novoItem = criarItem(Usuario);
+    tipodoItem novoItem = criarItem(valor);
 
     if (novoItem == NULL)
     {
@@ -80,12 +72,12 @@ tipodoItem inserir_Fim(char *Usuario, tipodoItem lista)
     }
 }
 
-tipodoItem inserir_Posicao(char *Usuario, tipodoItem lista, int posicao)
+tipodoItem inserir_Posicao(double valor, tipodoItem lista, int posicao)
 {
 
     posicao = posicao - 1;
 
-    tipodoItem novoItem = criarItem(Usuario);
+    tipodoItem novoItem = criarItem(valor);
 
     if (novoItem == NULL)
     {
@@ -149,7 +141,7 @@ void exibir(tipodoItem lista)
 
         while (listaAuxiliar != NULL)
         {
-            printf("[%s] ", listaAuxiliar->Usuario);
+            printf("[%f] ", listaAuxiliar->valor);
             listaAuxiliar = listaAuxiliar->proximo;
         }
     }
@@ -158,14 +150,9 @@ void exibir(tipodoItem lista)
 int main()
 {
     tipodoItem lista = NULL;
-    lista = inserirInicio("Gustavo", lista);
-    lista = inserirInicio("Camily", lista);
-    lista = inserir_Fim("Gabriel", lista);
-    lista = inserir_Posicao("Guarana", lista, 1);
-    lista = inserir_Posicao("Guarana", lista, 5);
+    lista = inserirInicio(1.4, lista);
 
     exibir(lista);
-    Test(lista, "Busta");
 
     return 0;
 }

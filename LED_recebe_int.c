@@ -5,7 +5,6 @@
 typedef struct Item
 {
     char Usuario[100];
-    struct Item *anterior;
     struct Item *proximo;
 } Item;
 
@@ -32,7 +31,6 @@ tipodoItem criarItem(char *Usuario)
             strncpy(novoItem->Usuario, Usuario, sizeof(novoItem->Usuario) - 1);
             novoItem->Usuario[sizeof(novoItem->Usuario) - 1] = '\0';
             novoItem->proximo = NULL;
-            novoItem->anterior = NULL;
             return novoItem;
         }
     }
@@ -49,40 +47,41 @@ tipodoItem inserirInicio(char *Usuario, tipodoItem lista)
     else
     {
         novoItem->proximo = lista;
-        lista->anterior = novoItem;
         return novoItem;
     }
 }
 
 tipodoItem inserir_Fim(char *Usuario, tipodoItem lista)
 {
-
     tipodoItem novoItem = criarItem(Usuario);
 
     if (novoItem == NULL)
     {
-        return novoItem;
+        return lista;
     }
     else
     {
-
-        tipodoItem listaAuxiliar = lista;
-
-        while (listaAuxiliar->proximo != NULL)
+        if (lista == NULL)
         {
-            listaAuxiliar = listaAuxiliar->proximo;
+            return novoItem;
         }
+        else
+        {
+            tipodoItem listaAuxiliar = lista;
 
-        listaAuxiliar->proximo = novoItem;
-        novoItem->anterior = listaAuxiliar;
+            while (listaAuxiliar->proximo != NULL)
+            {
+                listaAuxiliar = listaAuxiliar->proximo;
+            }
 
-        return lista;
+            listaAuxiliar->proximo = novoItem;
+            return lista;
+        }
     }
 }
 
 tipodoItem inserir_Posicao(char *Usuario, tipodoItem lista, int posicao)
 {
-
     posicao = posicao - 1;
 
     tipodoItem novoItem = criarItem(Usuario);
@@ -102,10 +101,6 @@ tipodoItem inserir_Posicao(char *Usuario, tipodoItem lista, int posicao)
     if (posicao == 0 || lista == NULL)
     {
         novoItem->proximo = lista;
-        if (lista != NULL)
-        {
-            lista->anterior = novoItem;
-        }
         return novoItem;
     }
 
@@ -126,12 +121,6 @@ tipodoItem inserir_Posicao(char *Usuario, tipodoItem lista, int posicao)
     }
 
     novoItem->proximo = listaAuxiliar->proximo;
-    if (listaAuxiliar->proximo != NULL)
-    {
-        listaAuxiliar->proximo->anterior = novoItem;
-    }
-
-    novoItem->anterior = listaAuxiliar;
     listaAuxiliar->proximo = novoItem;
 
     return lista;
@@ -165,7 +154,6 @@ int main()
     lista = inserir_Posicao("Guarana", lista, 5);
 
     exibir(lista);
-    Test(lista, "Busta");
 
     return 0;
 }

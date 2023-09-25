@@ -4,16 +4,16 @@
 
 typedef struct Item
 {
-    char Usuario[100];
+    int valor;
     struct Item *anterior;
     struct Item *proximo;
 } Item;
 
 typedef Item *tipodoItem;
 
-tipodoItem criarItem(char *Usuario)
+tipodoItem criarItem(int *valor)
 {
-    if (Usuario == NULL)
+    if (valor == NULL)
     {
         printf("\nErro ao criar Item!\n");
         return NULL;
@@ -29,8 +29,7 @@ tipodoItem criarItem(char *Usuario)
         }
         else
         {
-            strncpy(novoItem->Usuario, Usuario, sizeof(novoItem->Usuario) - 1);
-            novoItem->Usuario[sizeof(novoItem->Usuario) - 1] = '\0';
+            novoItem->valor = valor;
             novoItem->proximo = NULL;
             novoItem->anterior = NULL;
             return novoItem;
@@ -38,9 +37,9 @@ tipodoItem criarItem(char *Usuario)
     }
 }
 
-tipodoItem inserirInicio(char *Usuario, tipodoItem lista)
+tipodoItem inserirInicio(int *valor, tipodoItem lista)
 {
-    tipodoItem novoItem = criarItem(Usuario);
+    tipodoItem novoItem = criarItem(valor);
 
     if (lista == NULL)
     {
@@ -54,10 +53,10 @@ tipodoItem inserirInicio(char *Usuario, tipodoItem lista)
     }
 }
 
-tipodoItem inserir_Fim(char *Usuario, tipodoItem lista)
+tipodoItem inserir_Fim(int *valor, tipodoItem lista)
 {
 
-    tipodoItem novoItem = criarItem(Usuario);
+    tipodoItem novoItem = criarItem(valor);
 
     if (novoItem == NULL)
     {
@@ -80,12 +79,12 @@ tipodoItem inserir_Fim(char *Usuario, tipodoItem lista)
     }
 }
 
-tipodoItem inserir_Posicao(char *Usuario, tipodoItem lista, int posicao)
+tipodoItem inserir_Posicao(int *valor, tipodoItem lista, int posicao)
 {
 
     posicao = posicao - 1;
 
-    tipodoItem novoItem = criarItem(Usuario);
+    tipodoItem novoItem = criarItem(valor);
 
     if (novoItem == NULL)
     {
@@ -149,7 +148,7 @@ void exibir(tipodoItem lista)
 
         while (listaAuxiliar != NULL)
         {
-            printf("[%s] ", listaAuxiliar->Usuario);
+            printf("[%d] ", listaAuxiliar->valor);
             listaAuxiliar = listaAuxiliar->proximo;
         }
     }
@@ -158,14 +157,10 @@ void exibir(tipodoItem lista)
 int main()
 {
     tipodoItem lista = NULL;
-    lista = inserirInicio("Gustavo", lista);
-    lista = inserirInicio("Camily", lista);
-    lista = inserir_Fim("Gabriel", lista);
-    lista = inserir_Posicao("Guarana", lista, 1);
-    lista = inserir_Posicao("Guarana", lista, 5);
+    lista = inserirInicio(1, lista);
+    lista = inserirInicio(2, lista);
 
     exibir(lista);
-    Test(lista, "Busta");
 
     return 0;
 }
