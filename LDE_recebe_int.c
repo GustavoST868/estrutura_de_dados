@@ -11,33 +11,25 @@ typedef struct Item
 
 typedef Item *tipodoItem;
 
-tipodoItem criarItem(int *valor)
+tipodoItem criarItem(int valor)
 {
-    if (valor == NULL)
+    tipodoItem novoItem = (tipodoItem)malloc(sizeof(Item));
+
+    if (novoItem == NULL)
     {
         printf("\nErro ao criar Item!\n");
         return NULL;
     }
     else
     {
-        tipodoItem novoItem = (tipodoItem)malloc(sizeof(Item));
-
-        if (novoItem == NULL)
-        {
-            printf("\nErro ao criar Item!\n");
-            return NULL;
-        }
-        else
-        {
-            novoItem->valor = valor;
-            novoItem->proximo = NULL;
-            novoItem->anterior = NULL;
-            return novoItem;
-        }
+        novoItem->valor = valor;
+        novoItem->proximo = NULL;
+        novoItem->anterior = NULL;
+        return novoItem;
     }
 }
 
-tipodoItem inserirInicio(int *valor, tipodoItem lista)
+tipodoItem inserirInicio(int valor, tipodoItem lista)
 {
     tipodoItem novoItem = criarItem(valor);
 
@@ -53,18 +45,16 @@ tipodoItem inserirInicio(int *valor, tipodoItem lista)
     }
 }
 
-tipodoItem inserir_Fim(int *valor, tipodoItem lista)
+tipodoItem inserirFim(int valor, tipodoItem lista)
 {
-
     tipodoItem novoItem = criarItem(valor);
 
-    if (novoItem == NULL)
+    if (lista == NULL)
     {
         return novoItem;
     }
     else
     {
-
         tipodoItem listaAuxiliar = lista;
 
         while (listaAuxiliar->proximo != NULL)
@@ -79,22 +69,18 @@ tipodoItem inserir_Fim(int *valor, tipodoItem lista)
     }
 }
 
-tipodoItem inserir_Posicao(int *valor, tipodoItem lista, int posicao)
+tipodoItem inserirPosicao(int valor, tipodoItem lista, int posicao)
 {
-
-    posicao = posicao - 1;
+    if (posicao < 0)
+    {
+        printf("\nPosicao invalida!\n");
+        return lista;
+    }
 
     tipodoItem novoItem = criarItem(valor);
 
     if (novoItem == NULL)
     {
-        return lista;
-    }
-
-    if (posicao < 0)
-    {
-        printf("\nPosicao invalida!\n");
-        free(novoItem);
         return lista;
     }
 
@@ -136,6 +122,56 @@ tipodoItem inserir_Posicao(int *valor, tipodoItem lista, int posicao)
     return lista;
 }
 
+tipodoItem substituirElemento(tipodoItem lista, int posicao, int novoValor)
+{
+    tipodoItem elemento = lista;
+
+    for (int i = 1; i < posicao; i++)
+    {
+        elemento = elemento->proximo;
+        if (elemento == NULL)
+        {
+            printf("\nPosicao invalida!\n");
+            return lista;
+        }
+    }
+
+    elemento->valor = novoValor;
+
+    return lista;
+}
+
+tipodoItem apagarElemento(tipodoItem lista, int valor)
+{
+    tipodoItem listaAuxiliar = lista;
+
+    while (listaAuxiliar != NULL)
+    {
+        if (listaAuxiliar->valor == valor)
+        {
+            if (listaAuxiliar->anterior != NULL)
+            {
+                listaAuxiliar->anterior->proximo = listaAuxiliar->proximo;
+            }
+            if (listaAuxiliar->proximo != NULL)
+            {
+                listaAuxiliar->proximo->anterior = listaAuxiliar->anterior;
+            }
+
+            if (lista == listaAuxiliar)
+            {
+                lista = listaAuxiliar->proximo;
+            }
+
+            free(listaAuxiliar);
+        }
+
+        listaAuxiliar = listaAuxiliar->proximo;
+    }
+
+    return lista;
+}
+
 void exibir(tipodoItem lista)
 {
     if (lista == NULL)
@@ -159,8 +195,10 @@ int main()
     tipodoItem lista = NULL;
     lista = inserirInicio(1, lista);
     lista = inserirInicio(2, lista);
+    lista = inserirInicio(3, lista);
 
     exibir(lista);
+    printf("\n");
 
     return 0;
 }
