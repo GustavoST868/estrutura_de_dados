@@ -1,0 +1,35 @@
+//bucketsort function
+//buckets é um vetor
+//bucketsSizes é usado para armazenar o tamanho dos vetores.
+//Neste caso utiliza a ordenação por inserção nos buckets.
+
+
+void bucketSort(int array[], int size, int numBuckets) {
+    
+    int buckets[numBuckets][size];
+    int bucketSizes[numBuckets];
+
+    //inicializa o tamanho dos buckets com zero
+    for (int i = 0; i < numBuckets; i++) {
+        bucketSizes[i] = 0;
+    }
+
+    //distribui os elementos 
+    for (int i = 0; i < size; i++) {
+        int bucketIndex = array[i] / numBuckets;
+        buckets[bucketIndex][bucketSizes[bucketIndex]++] = array[i];
+    }
+
+    //ordena cada bucket com algoritmo de inserção
+    for (int i = 0; i < numBuckets; i++) {
+        insertionSort(buckets[i], bucketSizes[i]);
+    }
+
+   //cocatena os buckets 
+    int index = 0;
+    for (int i = 0; i < numBuckets; i++) {
+        for (int j = 0; j < bucketSizes[i]; j++) {
+            array[index++] = buckets[i][j];
+        }
+    }
+}

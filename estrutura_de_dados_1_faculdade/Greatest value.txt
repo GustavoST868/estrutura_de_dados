@@ -1,0 +1,29 @@
+//libraries
+#include <stdio.h>
+#include <locale.h>
+
+
+
+double Bigger(double *data_set,int size){
+double bigger = 0;
+for(int i = 0; i < size ; i++){
+if(bigger<data_set[i]){
+  bigger = data_set[i];
+}
+}
+return bigger;
+}
+
+
+int main(){
+
+  
+//declaring a dataset
+double data_set[] = {1,2,3,4,5,1000,6,7,8,9,10};
+int size = sizeof(data_set)/sizeof(data_set[0]);
+double result = Bigger(&data_set,size);
+printf("The greatest value is : [%.0f]",result); 
+return 0; 
+}
+
+           

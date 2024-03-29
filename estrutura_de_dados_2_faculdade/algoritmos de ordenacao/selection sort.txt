@@ -1,0 +1,20 @@
+void selectionSort(int array[], int size) {
+//temp:usada para trocar os elementos na execucao
+    int i, j, minIndex, temp;
+
+    //percorre cada elemento do vetor
+    for (i = 0; i < size - 1; i++) {
+        //indece do menor elemento da parte nao ordenada
+        minIndex = i;
+        for (j = i + 1; j < size; j++) {
+            if (array[j] < array[minIndex]) {
+                minIndex = j;
+            }
+        }
+
+        // trocar o menor elemento com o primeiro elemento da parte não ordenada
+        temp = array[i];
+        array[i] = array[minIndex];
+        array[minIndex] = temp;
+    }
+}

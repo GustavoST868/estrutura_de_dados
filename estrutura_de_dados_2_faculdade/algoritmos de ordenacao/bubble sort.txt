@@ -1,0 +1,32 @@
+void bubbleSort(int array[], int size) {
+    int i, j, temp;
+
+    //verificar que houve trocas
+    int trocas; 
+
+    // percorrer o vetor
+    for (i = 0; i < size - 1; i++) {
+
+        //inicializa trocas com 0
+        trocas = 0; 
+
+        // compara e troca os elementos
+        for (j = 0; j < size - i - 1; j++) {
+            if (array[j] > array[j + 1]) {
+
+                // troca se tiver na ordem errada
+                temp = array[j];
+                array[j] = array[j + 1];
+                array[j + 1] = temp;
+
+                //indica uma troca
+                trocas = 1; 
+            }
+        }
+
+        // sem trocas,ordenado
+        if (trocas == 0) {
+            break;
+        }
+    }
+}

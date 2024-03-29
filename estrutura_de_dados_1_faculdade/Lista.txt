@@ -1,0 +1,116 @@
+
+
+
+#include <stdio.h>
+#include <stdlib.h>
+
+// variaveis
+int tamanho = 4;
+int posicao = 4 - 1;
+
+// estrutura da fila
+struct Fila
+{
+    int fila[4];
+};
+struct Fila f;
+
+// função para inserir itens na fila
+void Enqueue()
+{
+    // verifica se ainda há espaço na fila
+    if (posicao >= 0)
+    {
+        int valor;
+        printf("Informe um valor: ");
+        scanf("%d", &valor);
+
+        f.fila[posicao] = valor;
+
+        posicao--;
+    }
+    else
+    {
+        printf("Fila cheia\n");
+    }
+}
+
+// função para remover itens da fila
+void Dequeue()
+{
+    // item a ser removido
+    posicao++;
+    if (posicao >= tamanho)
+    {
+        posicao = 0;
+    }
+
+    f.fila[posicao] = 0;
+}
+
+// função para mostrar os elementos da lista
+void MostrarLista()
+{
+    printf("\n");
+    for (int i = 0; i < tamanho; i++)
+    {
+        printf("%d ", f.fila[i]);
+    }
+    printf("\n");
+}
+
+// função para deletar todos os elementos da lista
+void Deletar()
+{
+    while (posicao <= tamanho) // Corrigido: use <= tamanho
+    {
+        f.fila[posicao] = 0;
+        posicao++;
+    }
+    MostrarLista();
+}
+
+int main()
+{
+    int posicao_ = 0;
+
+    // estrutura para manter o laço
+    while (posicao_ != 4)
+    {
+        printf("\n");
+        printf("Escolha uma operacao:\n");
+        printf("1. Inserir elemento\n");
+        printf("2. Remover elemento\n");
+        printf("3. Deletar lista\n");
+        printf("4. Sair\n");
+
+        scanf("%d", &posicao_);
+
+        switch (posicao_)
+        {
+        case 1:
+            Enqueue();
+            MostrarLista();
+            break;
+
+        case 2:
+            Dequeue();
+            MostrarLista();
+            break;
+
+        case 3:
+            printf("Deletar\n");
+            Deletar();
+            break;
+
+        case 4:
+            printf("Saindo...\n");
+            break;
+
+        default:
+            printf("Opção inválida\n");
+        }
+    }
+
+    return 0;
+}

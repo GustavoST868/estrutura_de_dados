@@ -1,0 +1,46 @@
+//libraries used
+#include <stdio.h>
+#include <string.h>
+#include <locale.h>
+
+
+void fib(int value){
+    int first = 0,second = 1,next;
+   printf("Sequência de Fibonacci :"); 
+   for(int i = 0;i<value;i++){
+      if(i<=1){
+         next = i;
+         printf("%d",next);
+      }else{
+         next   = first + second;
+         first  = second;
+         second = next;
+         printf("%d",next);
+      }
+   }
+   printf("%d",next);
+}
+
+
+int main(){
+
+
+  //variables
+  int num;
+
+  
+  //spell check
+  setlocale(LC_ALL,"portuguese");
+
+
+  //value for the Fibonacci function
+  printf("Enter a number : ");
+  scanf("%d",&num);
+
+
+  //pass the value to the function
+  fib(num);
+  
+
+  return 0;
+}

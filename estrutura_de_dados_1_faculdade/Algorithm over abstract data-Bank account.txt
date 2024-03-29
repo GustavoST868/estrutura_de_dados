@@ -1,0 +1,121 @@
+#include <stdio.h>
+
+//structure:
+struct contaBancaria{
+  int   number_to_count;
+  char  Cardholder_Name[100];
+  float balance;
+};
+
+int cont = -1;
+
+
+ //rename structure:
+struct contaBancaria cb[10];
+
+
+//function to get the name:
+char  get_firts_count(int start_an_account){
+  cont++;
+
+  
+    //get account number:
+   cb[cont].number_to_count = cont;
+
+  
+    //get the owner's name:
+    printf("\nInforme o nome do titular :");
+    scanf("%s",cb[0].Cardholder_Name);
+
+    
+    
+    //get the balance
+    printf("\nInforme o saldo :");
+    scanf("%f",&cb[0].balance);
+}
+
+
+//function of depositing:
+float depositing(){
+  float valor;
+
+  
+  //amount to be withdrawn:
+  printf("\nInforme o valor a ser sacado : ");
+  scanf("%f",valor);
+
+  cb[cont].balance = cb[cont].balance + valor;
+
+}
+
+
+//function to extract a value:
+float to_withdraw(){
+  float valor;
+
+  
+  //amount to be withdrawn:
+  printf("\n\n\nInforme o valor a ser sacado : ");
+  scanf("%f",valor);
+  cb[cont].balance = cb[cont].balance - valor;
+
+}
+
+
+// loop that shows the account balance:
+float print_the_balance(){
+  printf("%f",cb[cont].balance);
+}
+
+
+int main(void) {
+
+
+  //initialize a program:
+  int start_an_account;
+  int function;
+  int close;
+  
+  // loop that keeps the user in the program:
+  while(close != 1){
+  printf("Deseja criar uma conta ? \n1 - sim\n2 - não\n");
+  scanf("%d",&start_an_account);
+
+   
+  //starts the creation of a new account, if not, show the functions:
+  if(start_an_account == 1 ){
+    get_firts_count(start_an_account);
+  }else{
+    printf("\nInforme  a função que você deseja : \n");
+    printf("1 - DEPOSITAR\n2 - SACAR\n3 - IMPRIMIR O SALDO\n");
+    scanf("%d",&function);
+    
+
+    //depositing:
+    if(function == 1){
+      depositing();
+    }
+
+
+    //to_withdraw:
+    if(function == 2){
+     to_withdraw();
+    }
+
+
+    //print_the_balance:
+    if(function == 3){
+     print_the_balance();
+    }
+  }
+
+    
+    // ask the user if he wants to stay in the program:
+    printf("\n\nDeseja sair : \n1 - sim\n2 - não\n");
+    scanf("%d",&close);
+    
+  }
+  
+    
+  return 0;
+}

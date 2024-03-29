@@ -1,0 +1,46 @@
+//libraries
+#include <stdio.h>
+#include <locale.h>
+
+
+int main(){
+
+
+//normal variables and pointers
+
+int variable_one;
+int variable_two;
+int variable_three;
+int *pointer_variable_one = &variable_one;
+int *pointer_variable_two = &variable_two;
+int *pointer_variable_three = &variable_three;
+
+
+
+scanf("%d%d%d",&variable_one,&variable_two,&variable_three);
+
+int temp;
+
+    if (*pointer_variable_one > *pointer_variable_two) {
+        temp = *pointer_variable_one;
+        *pointer_variable_one = *pointer_variable_two;
+        *pointer_variable_two = temp;
+    }
+
+    if (*pointer_variable_two > *pointer_variable_three) {
+        temp = *pointer_variable_two;
+        *pointer_variable_two = *pointer_variable_three;
+        *pointer_variable_three = temp;
+    }
+
+    if (*pointer_variable_one > *pointer_variable_two) {
+        temp = *pointer_variable_one;
+        *pointer_variable_one = *pointer_variable_two;
+        *pointer_variable_two = temp;
+    }
+  
+printf("[%d]\n[%d]\n[%d]",*pointer_variable_one,*pointer_variable_two,*pointer_variable_three);
+return 0;
+}
+
+           

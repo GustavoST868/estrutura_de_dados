@@ -1,0 +1,22 @@
+//maiores para a direita
+
+void insertionSort(int array[], int size) {
+    
+    //key>elemento atual do vetor,que tambem é elemento do vetor que queremos ordenar
+    int i, key, j;
+    
+    //seleciona o proximo elemento para insercao
+    for (i = 1; i < size; i++) {
+        key = array[i];
+        j = i - 1;
+
+        //move o valor maior para frente da sua posicao atual
+        while (j >= 0 && array[j] > key) {
+            array[j + 1] = array[j];
+            j = j - 1;
+        }
+       
+        //coloca a chave na posicao correta
+        array[j + 1] = key;
+    }
+}
