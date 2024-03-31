@@ -1,2 +1,3 @@
 # Estrutura-de-Dados
-Algoritmos desenvolvidos na materia de Estrutura de Dados
+Algoritmos de estrutura de dados em várias linguagens.
+
